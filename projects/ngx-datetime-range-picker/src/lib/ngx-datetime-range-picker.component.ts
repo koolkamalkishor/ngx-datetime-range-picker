@@ -5,10 +5,10 @@ import {
   Input,
   OnChanges,
   Output,
-  Renderer,
   SimpleChanges,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Renderer2
 } from "@angular/core";
 import { Observable } from "rxjs";
 import { NgxDatetimeRangePickerConstants } from "./ngx-datetime-range-picker.constants";
@@ -125,7 +125,7 @@ export class NgxDatetimeRangePickerComponent implements OnChanges {
 
   constructor(
     public element: ElementRef,
-    private renderer: Renderer,
+    private renderer: Renderer2,
     private ngxDateTimeRangePickerService: NgxDatetimeRangePickerService
   ) {
     this.options = this.ngxDateTimeRangePickerService.getDefaultOptions();
@@ -134,7 +134,7 @@ export class NgxDatetimeRangePickerComponent implements OnChanges {
 
     this.todayTime = this.ngxDateTimeRangePickerService.getZoneToday(this.selectedTimezone, this.config.viewDateFormat);
 
-    this.renderer.listenGlobal("document", "click", (event: any) => {
+    this.renderer.listen("document", "click", (event: any) => {
       if (
         this.showCalendar &&
         event.target &&
